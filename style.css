@@ -7,8 +7,8 @@
     --bg-body: hsl(0, 0%, 8%);
     --bg-contact: hsl(0, 0%, 14%);
     --accent: hsl(153, 71%, 59%);
-    --text1: hsl(0, 0%, 100%);
-    --text2:hsl(0, 0%, 85%);
+    --text1: #ffffee;
+    --text2:hsl(0deg 100% 84.44%);
     --invalid:hsl(7, 100%, 68%);
     --fs-18: 1.125rem;
     --fs-88: 5.5rem;
@@ -18,6 +18,33 @@
     --fs-32: 2rem;
     --fs--24: 1.5rem;
     --container:69.375rem;
+    
+    --gradient1: orange;
+    --gradient2: rgb(180 0 90);
+    --gradient3: rgb(142, 0, 90);
+    --gradient4: #ff9671;
+    --gradient5: #ffc75f;
+    --gradient6: #f9f871;
+    --gradient: linear-gradient(
+        45deg,
+        var(--gradient1),
+        var(--gradient2),
+        var(--gradient3)
+        /*,
+        var(--gradient4),
+        var(--gradient5),
+        var(--gradient6)
+        */
+    );
+
+    --portraitDesktopA: #fbfd82bd;
+    --portraitDesktopB: transparent;
+
+    --portraitTabletA: #faf986;
+    --portraitTabletB: transparent;
+
+    --portraitMobileA: #ffee77c2;
+    --portraitMobileB: transparent;
 }
 
 html{
@@ -32,7 +59,8 @@ html{
 body{
     margin: 0;
     font-family: 'Space Grotesk', sans-serif;
-    background-color: var(--bg-body);
+    /*background-color: var(--bg-body);*/
+    background: var(--gradient) fixed;
     color: var(--text1);
     font-size: var(--fs-18);
     line-height: 1.56;
@@ -202,6 +230,11 @@ img, svg {
     translate: -50%;
     width:174px;
     height: auto;
+    background: linear-gradient(
+        330deg,
+        var(--portraitMobileA),
+        var(--portraitMobileB)
+    )    
 }
 
 .hero_text{
@@ -265,6 +298,11 @@ h1 > span {
         left: auto;
         right: 0;
         translate: 0;
+        background: linear-gradient(
+            0deg,
+            var(--portraitTabletA),
+            var(--portraitTabletB)
+            );
     }
 
     .hero_text{
@@ -308,6 +346,12 @@ h1 > span {
 
     .hero_image{
         margin-top: -199px;
+        background:
+            linear-gradient(
+                320deg,
+                var(--portraitDesktopA),
+                var(--portraitDesktopB)
+            );
     }
 
     .hero_text{
