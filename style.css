@@ -234,7 +234,7 @@ img, svg {
         330deg,
         var(--portraitMobileA),
         var(--portraitMobileB)
-    )    
+    );
 }
 
 .hero_text{
