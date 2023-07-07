@@ -3,7 +3,6 @@ var rootStyles = getComputedStyle(root);
 var projects = document.querySelector("html");
 var snapMandatory = true;
 
-
 const rgb1=rootStyles.getPropertyValue('--gradient1');
 const rgb2=rootStyles.getPropertyValue('--gradient2');
 const rgb3=rootStyles.getPropertyValue('--gradient3');
@@ -17,20 +16,20 @@ const text1x=rootStyles.getPropertyValue('--text1x');
 const text2=rootStyles.getPropertyValue('--text2');
 const text2x=rootStyles.getPropertyValue('--text2x');
 
-console.log(text1x);
-
 window.addEventListener('scroll', () =>{
     const scrollable = document.documentElement.scrollHeight - window.innerHeight;
     const scrolled = window.scrollY;
     const gradientAngle=(45+(Math.ceil(scrolled)/5))+'deg';
 
-    //lerp colors B*t+A(1-t)
-    t=1-(scrolled/window.innerHeight);
+    
 
     if (scrolled < (window.innerHeight-45))
     {
         // change css degree property for background
         root.style.setProperty('--degree', gradientAngle);
+
+        //set time to amount scrolled within top windowheight 
+        t=1-(scrolled/window.innerHeight);
 
         //lerp background colors
         root.style.setProperty('--gradient1', 
@@ -43,7 +42,6 @@ window.addEventListener('scroll', () =>{
         lerpColors(rgb3, rgb3x, t));
 
         //lerp text
-        
         root.style.setProperty('--text1', 
         lerpColors(text1, text1x, t));
 
@@ -83,7 +81,7 @@ window.addEventListener('scroll', () =>{
 })
 
 
-
+// lerp colors B*t+A(1-t)
 function lerpColors(rgbB,rgbA, t) {
     //cast rgb values to int arrays 
     rgbB = rgbB.match(/\d+/g).map(Number);
@@ -105,9 +103,23 @@ function lerpColors(rgbB,rgbA, t) {
 }
 
 
+// Transitions
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting)
+            entry.target.classList.add('show');
+        else {
+            //remove 'hero_content from transitions list'
+            if(entry.target.className === "hero_content hidden show")
+                entry.target.classList.remove('hidden');
+            
+            entry.target.classList.remove('show');
+        }
+    });
+});
 
-
-
+const hiddenElements = document.querySelectorAll('.hidden');
+hiddenElements.forEach((el) => observer.observe(el));
 
 
 
