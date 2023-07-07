@@ -6,10 +6,13 @@
 :root {
     --bg-body: hsl(0, 0%, 8%);
     --bg-contact: hsl(0, 0%, 14%);
-    --accent: hsl(153, 71%, 59%);
-    --text1: #ffffee;
-    --text2:hsl(0deg 100% 84.44%);
-    --invalid:hsl(7, 100%, 68%);
+    --accent: rgb(76, 225, 158);
+    --accentx: rgb(255, 237, 76);
+    --text1: rgb(255, 255, 238);
+    --text1x: rgb(238, 255, 254);
+    --text2:rgb(255, 176, 176); 
+    --text2x:rgb(176, 255, 210);
+    --invalid:hsl(7, 100%, 68%); 
     --fs-18: 1.125rem;
     --fs-88: 5.5rem;
     --fs-72: 4.5rem;
@@ -18,23 +21,21 @@
     --fs-32: 2rem;
     --fs--24: 1.5rem;
     --container:69.375rem;
-    
-    --gradient1: orange;
-    --gradient2: rgb(180 0 90);
+
+    --gradient1: rgb(255, 165, 0);
+    --gradient2: rgb(180, 0, 90);
     --gradient3: rgb(142, 0, 90);
-    --gradient4: #ff9671;
-    --gradient5: #ffc75f;
-    --gradient6: #f9f871;
+    
+    --gradient1x: rgb(0, 231, 255);
+    --gradient2x: rgb(15, 234, 191);
+    --gradient3x: rgb(15, 234, 191);
+
+    --degree:45deg;
     --gradient: linear-gradient(
-        45deg,
+        var(--degree),
         var(--gradient1),
         var(--gradient2),
         var(--gradient3)
-        /*,
-        var(--gradient4),
-        var(--gradient5),
-        var(--gradient6)
-        */
     );
 
     --portraitDesktopA: #fbfd82bd;
@@ -45,11 +46,14 @@
 
     --portraitMobileA: #ffee77c2;
     --portraitMobileB: transparent;
+
+    
 }
 
 html{
     box-sizing: border-box;
     font-size: 100%;
+    scroll-snap-type: y mandatory;
 }
 
 *, *::before, *::after{
@@ -59,16 +63,18 @@ html{
 body{
     margin: 0;
     font-family: 'Space Grotesk', sans-serif;
-    /*background-color: var(--bg-body);*/
     background: var(--gradient) fixed;
     color: var(--text1);
     font-size: var(--fs-18);
     line-height: 1.56;
     padding-bottom: 30rem;
     overflow-x: hidden;
+    
+    
 }
 
 main {
+    
     margin-bottom: 15rem;
 }
 
@@ -104,7 +110,8 @@ a.underline {
     line-height: 1.625;
     letter-spacing: 0.143em;
     font-weight: 700;
-    text-transform: uppercase;
+    text-transform:uppercase;
+    text-decoration:none;
     color: var(--text1);
     background-image: linear-gradient(
         to right,
@@ -150,11 +157,16 @@ img, svg {
     border-bottom: 1px solid var(--text2);
 }
 
+.section{
+    scroll-snap-align: start;
+}
+
 /* HEADER */
 .header{
     position: relative;
     z-index: 1;
     margin-top: 20px;
+    scroll-margin-top:30px;
 }
 
 .header_nav{
@@ -179,7 +191,7 @@ img, svg {
 }
 
 .header_social:hover{
-    fill: var(--accent)
+    fill: var(--accent);
 }
 
 @media (min-width: 37.5em){
@@ -240,7 +252,7 @@ img, svg {
 .hero_text{
     position:relative;
     text-align: center;
-    margin-top: 335px
+    margin-top: 335px;
 }
 
 .hero_headline {
@@ -421,7 +433,7 @@ h1 > span {
 /* PROJECTS */
 
 .projects {
-
+    scroll-margin-top:-50px;
 }
 
 .projects_wrapper{
@@ -437,6 +449,9 @@ h1 > span {
 .projects_headline{
     grid-column: 1 / 2;
     margin-block-end: 0;
+    background:yellow;
+    color: black;
+    border-style:none;
 }
 
 .projects_contact {
