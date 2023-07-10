@@ -69,12 +69,9 @@ body{
     line-height: 1.56;
     padding-bottom: 30rem;
     overflow-x: hidden;
-    
-    
 }
 
 main {
-    
     margin-bottom: 15rem;
 }
 
@@ -100,7 +97,6 @@ p{
 
 a{
     transition: color var(--transition);
-
 }
 
 a.underline {
@@ -206,11 +202,12 @@ img, svg {
     flex: 1 0 100%;
 }
 
-.headder_social > svg > path {
-    transition: fill var(--transition);
+
+.header_social > svg > path {
+    transition: fill var(--accent);
 }
 
-.header_social:hover{
+.header_social:hover >svg > path{
     fill: var(--accent);
 }
 
@@ -355,6 +352,7 @@ h1 > span {
 
     .hero_description {
         margin-bottom: 34px;
+        margin-right: 50px;
     }
 }
 
@@ -401,6 +399,7 @@ h1 > span {
 
     .hero_description {
         margin-bottom: 66px;
+        margin-right: 100px;
     }
 }
 
