@@ -8,10 +8,15 @@
     --bg-contact: hsl(0, 0%, 14%);
     --accent: rgb(76, 225, 158);
     --accentx: rgb(255, 237, 76);
+    --accentx2: rgb(96, 0, 141);
+    
     --text1: rgb(255, 255, 238);
-    --text1x: rgb(238, 255, 254);
     --text2:rgb(255, 176, 176); 
+    --text1x: rgb(238, 255, 254);
     --text2x:rgb(176, 255, 210);
+    --text1x2: rgb(0, 0, 0);
+    --text2x2:rgb(0, 0, 0);
+
     --invalid:hsl(7, 100%, 68%); 
     --fs-18: 1.125rem;
     --fs-88: 5.5rem;
@@ -20,7 +25,9 @@
     --fs--48: 3rem;
     --fs-32: 2rem;
     --fs--24: 1.5rem;
+    --fs-20: 1.25rem;
     --container:69.375rem;
+    --transition: 250ms ease-in-out;
 
     --gradient1: rgb(255, 165, 0);
     --gradient2: rgb(180, 0, 90);
@@ -29,6 +36,12 @@
     --gradient1x: rgb(0, 231, 255);
     --gradient2x: rgb(15, 234, 191);
     --gradient3x: rgb(15, 234, 191);
+    --gradient1x2: rgb(251, 0, 255);
+    --gradient2x2: rgb(0, 231, 255);
+    --gradient3x2: rgb(0, 231, 255);
+    --gradient1x3: rgb(255, 255, 0);
+    --gradient2x3: rgb(91, 0, 57);
+    --gradient3x3:rgb(91, 0, 57);
 
     --degree:45deg;
     --gradient: linear-gradient(
@@ -40,14 +53,10 @@
 
     --portraitDesktopA: #fbfd82bd;
     --portraitDesktopB: transparent;
-
     --portraitTabletA: #faf986;
     --portraitTabletB: transparent;
-
     --portraitMobileA: #ffee77c2;
     --portraitMobileB: transparent;
-
-    
 }
 
 html{
@@ -60,6 +69,13 @@ html{
     box-sizing: inherit;
 }
 
+body, 
+input, 
+textarea, 
+button{
+    font-family: 'Space Grotestk', sans-serif;
+}
+
 body{
     margin: 0;
     font-family: 'Space Grotesk', sans-serif;
@@ -67,12 +83,11 @@ body{
     color: var(--text1);
     font-size: var(--fs-18);
     line-height: 1.56;
-    padding-bottom: 30rem;
     overflow-x: hidden;
 }
 
 main {
-    margin-bottom: 15rem;
+    margin-bottom: 5rem;
 }
 
 h1,
@@ -99,7 +114,20 @@ a{
     transition: color var(--transition);
 }
 
-a.underline {
+a:focus-visible, 
+input:focus-visible, 
+textarea:focus-visible {
+    outline: 2px none var(--accent);
+    outline-offset: 2px;
+}
+
+input:invalid,
+textarea:invalid{
+    outline-color: var(--invalid);
+}
+
+a.underline, 
+button {
     display: inline-block;
     padding-bottom: 0.625rem;
     font-size: 1rem;
@@ -119,7 +147,8 @@ a.underline {
     background-size: 8px 2px;
 }
 
-a:hover {
+a:hover,
+button:hover {
     color: var(--accent);
 }
 
@@ -153,7 +182,7 @@ img, svg {
     border-bottom: 1px solid var(--text2);
 }
 
-.section{
+.magnet{
     scroll-snap-align: start;
 }
 
@@ -457,6 +486,8 @@ h1 > span {
 
 .projects_wrapper{
     padding-block: 80px;
+    padding-bottom: 200px;
+    border-bottom: 1px solid var(--text2);
 }
 
 .projects_grid{
@@ -578,6 +609,133 @@ h1 > span {
     }
 
 }
+
+/* CONTACT */
+
+.contact{
+    position: relative;
+}
+
+.contact_wrapper {
+    padding-block: 84;
+    margin-top: 80px;
+}
+
+.contact_headline {
+    margin-block-end: var(--fs-20);
+}
+
+.contact_form {
+}
+
+.contact_control {
+    position: relative;
+    margin-block-end: 16px;
+}
+
+.contact_control input,
+.contact_control textarea {
+    width:100%;
+    padding-block: 16px;
+    padding-inline: 24p;
+    border: none;
+    border-bottom: 1px solid var(--text1);
+    background: transparent;
+    font-size: 1rem;
+    line-height: 1.625;
+    color: var(--text1);
+}
+
+
+
+.contact_control > *::placeholder{
+    color: var(--text1);
+    opacity: 0.5;
+    text-transform: uppercase;
+}
+
+.contact_control input {
+}
+
+.contact_control textarea {
+    margin-block-end: 32px;
+}
+
+.contact_control.align-right{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.contact_control button {
+    background: transparent;
+    border: none;
+}
+
+.contact_invalid-icon {
+    display: none;
+    width: var(--fs-24);
+    height: var(--fs-24);
+    position: absolute;
+    top: 50%;
+    right: 0;
+    translate: -50% -50%
+}
+
+.contact input:focus-visible:invalid ~ .contact_invalid-icon,
+.contact textarea:focus-visible:invalid ~ .contact_invalid-icon {
+    display:inline-block;
+}
+
+.contact textarea:focus-visible:invalid ~ .contact_invalid-icon {
+    top: 1.2rem;
+    right: 1.5rem;
+    translate: none;
+}
+
+@media (min-width: 62.5em){
+    .contact_wrapper {
+        display: grid;
+        grid-template-columns: repeat(2, 27.8rem);
+        justify-content: space-between;
+        margin-top: 150px;
+        margin-bottom: 170px;
+    }
+
+    .contact_headline {
+        margin-block-end: var(--fs-36);
+    }
+}
+
+@media (max-width: 62.49875em){
+    .contact_wrapper{
+        max-width: 27.8rem;
+    }
+
+    .contact_text{
+        text-align: center;
+    }
+}
+
+.footer{
+    margin-bottom: 24px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -9,28 +9,45 @@ const rgb3=rootStyles.getPropertyValue('--gradient3');
 const rgb1x=rootStyles.getPropertyValue('--gradient1x');
 const rgb2x=rootStyles.getPropertyValue('--gradient2x');
 const rgb3x=rootStyles.getPropertyValue('--gradient3x');
+const rgb1x2=rootStyles.getPropertyValue('--gradient1x2');
+const rgb2x2=rootStyles.getPropertyValue('--gradient2x2');
+const rgb3x2=rootStyles.getPropertyValue('--gradient3x2');
+const rgb1x3=rootStyles.getPropertyValue('--gradient1x3');
+const rgb2x3=rootStyles.getPropertyValue('--gradient2x3');
+const rgb3x3=rootStyles.getPropertyValue('--gradient3x3');
+
+
 const accent=rootStyles.getPropertyValue('--accent');
-const accentx=rootStyles.getPropertyValue('--accentx');
 const text1=rootStyles.getPropertyValue('--text1');
-const text1x=rootStyles.getPropertyValue('--text1x');
 const text2=rootStyles.getPropertyValue('--text2');
+const accentx=rootStyles.getPropertyValue('--accentx');
+const text1x=rootStyles.getPropertyValue('--text1x');
 const text2x=rootStyles.getPropertyValue('--text2x');
+const accentx2=rootStyles.getPropertyValue('--accentx2');
+const text1x2=rootStyles.getPropertyValue('--text1x2');
+const text2x2=rootStyles.getPropertyValue('--text2x2');
+
+
+var lerpGate=false; //gate incomplete lerping so that it only triggers scrolling down
+
 
 window.addEventListener('scroll', () =>{
     const scrollable = document.documentElement.scrollHeight - window.innerHeight;
     const scrolled = window.scrollY;
-    const gradientAngle=(45+(Math.ceil(scrolled)/5))+'deg';
+    var gradientAngle;
 
-    
-
-    if (scrolled < (window.innerHeight-45))
+    if (scrolled <= (window.innerHeight-45))
     {
+        lerpGate=false;
+
         // change css degree property for background
+        gradientAngle=(45+(Math.ceil(scrolled)/5))+'deg';
         root.style.setProperty('--degree', gradientAngle);
+  
 
         //set time to amount scrolled within top windowheight 
-        t=1-(scrolled/window.innerHeight);
-
+        t=1-(scrolled/window.innerHeight); 
+ 
         //lerp background colors
         root.style.setProperty('--gradient1', 
         lerpColors(rgb1, rgb1x, t));
@@ -50,17 +67,9 @@ window.addEventListener('scroll', () =>{
 
         root.style.setProperty('--accent', 
         lerpColors(accent, accentx, t));
+
         
-
-
-        //update background
-        document.body.style.background = rootStyles.getPropertyValue('--gradient') + 'fixed';
-        
-        //update text
-        document.body.style.color = rootStyles.getPropertyValue('--text1');
-
     }
-
     else if( scrolled >= (window.innerHeight-45)){
 
         // set scroll snap style to proximity style scroll-snapping if mandatory style
@@ -77,7 +86,99 @@ window.addEventListener('scroll', () =>{
             //gate style once applied
             snapMandatory = false;
         }
+
+        if(scrolled >= (scrollable-(2*window.innerHeight))){
+            lerpGate=true;
+            t=((scrollable-scrolled)/(2*window.innerHeight));
+            
+
+            //lerp gradient 1
+            root.style.setProperty('--gradient1', 
+            lerpColors(rgb1x, rgb1x3, t));
+
+            
+            if(scrolled >= (scrollable-window.innerHeight)){
+                
+
+                //lerp change 3 
+                t=((scrollable-scrolled)/window.innerHeight);
+                /*
+                gradientAngle=(Math.ceil(180+((1-t)*180)))+'deg';
+                root.style.setProperty('--degree', gradientAngle);
+                */
+
+                //lerp background colors
+                root.style.setProperty('--gradient2', 
+                lerpColors(rgb2x2, rgb1x3, t));
+    
+                root.style.setProperty('--gradient3', 
+                lerpColors(rgb3x2, rgb1x3, t));
+
+                 //lerp text
+                 root.style.setProperty('--text1', text1x);
+
+                 root.style.setProperty('--text2', text2x);
+
+                 root.style.setProperty('--accent', accentx);
+
+                var dis=2;
+
+                if(scrolled >= (scrollable-(window.innerHeight/dis))){
+                    
+                    t=((scrollable-scrolled)/(window.innerHeight/dis));
+
+                    //lerp text
+                    root.style.setProperty('--text1', 
+                    lerpColors(text1x, text1x2, t));
+
+                    root.style.setProperty('--text2', 
+                    lerpColors(text2x, text2x2, t));
+
+                    root.style.setProperty('--accent', 
+                    lerpColors(accentx, accentx2, t));
+                }
+
+                //gradientAngle=(45+(Math.ceil(scrolled)/5))+'deg';        
+            }
+
+            else if(scrolled >= (scrollable-(window.innerHeight*2))){
+                //lerp change 2 
+                t=((scrollable-scrolled)/(window.innerHeight))-1;
+
+                //lerp background colors     
+                root.style.setProperty('--gradient2', 
+                lerpColors(rgb2x, rgb2x2, t));
+    
+                root.style.setProperty('--gradient3', 
+                lerpColors(rgb3x, rgb3x2, t));
+            }  
+        } 
+        //complete 1st incomplete lerps to avoid jump
+        else{
+            if(t>0 && lerpGate==false)
+            {
+                root.style.setProperty('--gradient1', 
+                lerpColors(rgb1, rgb1x, t));
+
+                root.style.setProperty('--gradient2', 
+                lerpColors(rgb2, rgb2x, t));
+
+                root.style.setProperty('--gradient3', 
+                lerpColors(rgb3, rgb3x, t));
+                t=t-0.005;
+            }
+        }
     }
+    
+
+    //update background
+    document.body.style.background = rootStyles.getPropertyValue('--gradient') + 'fixed';
+        
+    //update text
+    document.body.style.color = rootStyles.getPropertyValue('--text1');
+
+
+    
 })
 
 
