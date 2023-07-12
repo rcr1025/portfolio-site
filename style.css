@@ -62,7 +62,7 @@
 html{
     box-sizing: border-box;
     font-size: 100%;
-    scroll-snap-type: y mandatory;
+    scroll-snap-type: none;
 }
 
 *, *::before, *::after{
@@ -719,29 +719,4 @@ h1 > span {
 .footer{
     margin-bottom: 24px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

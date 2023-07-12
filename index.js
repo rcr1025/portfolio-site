@@ -1,7 +1,9 @@
 var root = document.querySelector(':root');
+
 var rootStyles = getComputedStyle(root);
 var projects = document.querySelector("html");
-var snapMandatory = true;
+var snapMandatory = true; // gate to remove hard snapping between sections
+var lerpGate=false; //gate incomplete lerping so that it only triggers scrolling down
 
 const rgb1=rootStyles.getPropertyValue('--gradient1');
 const rgb2=rootStyles.getPropertyValue('--gradient2');
@@ -27,9 +29,10 @@ const accentx2=rootStyles.getPropertyValue('--accentx2');
 const text1x2=rootStyles.getPropertyValue('--text1x2');
 const text2x2=rootStyles.getPropertyValue('--text2x2');
 
-
-var lerpGate=false; //gate incomplete lerping so that it only triggers scrolling down
-
+//turn on snap mandatory after initial page transition
+setTimeout(() => {
+    if(snapMandatory) projects.style.setProperty("scroll-snap-type", "y mandatory");
+}, "1000")
 
 window.addEventListener('scroll', () =>{
     const scrollable = document.documentElement.scrollHeight - window.innerHeight;
@@ -98,14 +101,9 @@ window.addEventListener('scroll', () =>{
 
             
             if(scrolled >= (scrollable-window.innerHeight)){
-                
 
                 //lerp change 3 
                 t=((scrollable-scrolled)/window.innerHeight);
-                /*
-                gradientAngle=(Math.ceil(180+((1-t)*180)))+'deg';
-                root.style.setProperty('--degree', gradientAngle);
-                */
 
                 //lerp background colors
                 root.style.setProperty('--gradient2', 
@@ -136,9 +134,7 @@ window.addEventListener('scroll', () =>{
 
                     root.style.setProperty('--accent', 
                     lerpColors(accentx, accentx2, t));
-                }
-
-                //gradientAngle=(45+(Math.ceil(scrolled)/5))+'deg';        
+                }   
             }
 
             else if(scrolled >= (scrollable-(window.innerHeight*2))){
@@ -153,7 +149,7 @@ window.addEventListener('scroll', () =>{
                 lerpColors(rgb3x, rgb3x2, t));
             }  
         } 
-        //complete 1st incomplete lerps to avoid jump
+        //complete 1st incomplete lerps to avoid awkward jump
         else{
             if(t>0 && lerpGate==false)
             {
@@ -170,15 +166,12 @@ window.addEventListener('scroll', () =>{
         }
     }
     
-
     //update background
     document.body.style.background = rootStyles.getPropertyValue('--gradient') + 'fixed';
         
     //update text
     document.body.style.color = rootStyles.getPropertyValue('--text1');
 
-
-    
 })
 
 
@@ -204,7 +197,7 @@ function lerpColors(rgbB,rgbA, t) {
 }
 
 
-// Transitions
+// observe area for elements awaiting to transition in
 const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
         if (entry.isIntersecting)
@@ -219,13 +212,9 @@ const observer = new IntersectionObserver((entries) => {
     });
 });
 
+// Trigger transition effects on hidden elements
 const hiddenElements = document.querySelectorAll('.hidden');
 hiddenElements.forEach((el) => observer.observe(el));
-
-
-
-
-
 
 
 // start page on top after refresh
