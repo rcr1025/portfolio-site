@@ -183,7 +183,7 @@ img, svg {
 }
 
 .magnet{
-    scroll-snap-align: start;
+    /*scroll-snap-align: start;*/
 }
 
 
@@ -259,10 +259,11 @@ img, svg {
     }
 }
 
-@media(min-witdth: 62.5em) {
+@media(min-width: 62.5em) {
     .header {
+        scale:1.3;
         margin-top: 40px;
-        margin-bottom: 127px;
+        margin-bottom:127px;
     }
 
     .header_nav{
@@ -272,9 +273,6 @@ img, svg {
 
 /* HERO */
 
-.hero{
-
-}
 
 .hero_wrapper{
     padding-bottom: 80px;
@@ -386,13 +384,11 @@ h1 > span {
 }
 
 @media (min-width: 62.5em){
-    .hero{
-        margin-top: 0px;
-    }
 
     .hero_wrapper{
         position: relative;
-        padding-bottom: 100px;
+        scale: 1.3;
+        padding-bottom: 200px;
     }
 
     .her_content {
@@ -404,7 +400,7 @@ h1 > span {
     }
 
     .hero_image{
-        margin-top: -199px;
+        margin-top: -60px;
         background:
             linear-gradient(
                 320deg,
@@ -414,8 +410,6 @@ h1 > span {
     }
 
     .hero_text{
-        margin-top:0;
-        margin-right: 0;
         flex: 1;
     }
 
@@ -430,7 +424,9 @@ h1 > span {
         margin-bottom: 66px;
         margin-right: 100px;
     }
+
 }
+
 
 /* PROJECTS */
 
@@ -439,6 +435,7 @@ h1 > span {
 }
 
 .projects_wrapper{
+    
     padding-block: 80px;
     padding-bottom: 200px;
     border-bottom: 1px solid var(--text2);
@@ -510,6 +507,14 @@ h1 > span {
 }
 
 @media(min-width: 62.5em){
+    .projects{
+        scale:1.1;
+    }
+    
+    .projects_wrapper{
+        margin-top:300px;
+    }
+
     .projects_grid{
         gap: 70px 30px;
     }
@@ -660,12 +665,15 @@ input:-webkit-autofill:active{
 }
 
 @media (min-width: 62.5em){
+    .contact{
+        scale: 1.3;
+    }
     .contact_wrapper {
         display: grid;
         grid-template-columns: repeat(2, 27.8rem);
         justify-content: space-between;
-        margin-top: 150px;
-        margin-bottom: 170px;
+        margin-top: 430px;
+        margin-bottom: 300px;
     }
 
     .contact_headline {
@@ -687,3 +695,9 @@ input:-webkit-autofill:active{
     margin-bottom: 24px;
 }
 
+
+@media (min-width: 62.5em){
+    .footer{
+        scale:1.3;
+    }
+}
